@@ -23,24 +23,29 @@ public class ProductsController {
 
     @RequestMapping(value = "/products", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Products>> allUsers(){
-        return new ResponseEntity<>(productsService.allProducts(), HttpStatus.OK);
+        List<Products> products = productsService.allProducts();
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/products", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Products> createProduct(@RequestBody Products products){
-        return new ResponseEntity<>(productsService.createProducts(products),HttpStatus.OK);
+        Products product = productsService.createProducts(products);
+        return new ResponseEntity<>(product,HttpStatus.OK);
     }
     @RequestMapping(value = "/products", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Products> updateProduct(@RequestBody Products products){
-        return new ResponseEntity<>(productsService.updateProducts(products),HttpStatus.OK);
+        productsService.updateProducts(products);
+        return new ResponseEntity<>(products,HttpStatus.OK);
     }
 
     @RequestMapping(value = "/products/{category}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Products>> productsByCategory(@PathVariable String category){
-        return new ResponseEntity<>(productsService.productsByCategory(category),HttpStatus.OK);
+        List<Products> products = productsService.productsByCategory(category);
+        return new ResponseEntity<>(products,HttpStatus.OK);
     }
     @RequestMapping(value = "/products/{id}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Products> product(@PathVariable Long id){
-        return new ResponseEntity<>(productsService.getProduct(id),HttpStatus.OK);
+        Products product  = productsService.getProduct(id);
+        return new ResponseEntity<>(product,HttpStatus.OK);
     }
 }
